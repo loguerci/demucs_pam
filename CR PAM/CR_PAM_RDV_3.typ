@@ -34,7 +34,11 @@
 
 #c([Oui. Utilisable en données d'entraînement. _Décider des répétitions à faire :_ 15  fois la même note ou varier le timbre / jeu? Utilisable pour les algorithmes (M)NMF.])\
 
+#rem([Le dictionnaire serait enregistré in situ, en multicanal, afin de capturer le rayonnement réel de chaque instrument l’interaction instrument–salle–micro, les variations naturelles (instabilité, dynamique).])\
+
 #q([Est-ce possible, avec ce dictionnaire de retrouver la réponse de la salle au rayonnement de chaque instrument ? Est-ce possible d'utiliser un dictionnaire de notes pour imiter un sweep et obtenir une réponse de la salle approchée pour le rayonnement et timbre spécifique de l'instrument ? *Question pour Fabre.*])\
+
+#rem([Le dictionnaire peut être vu comme un sweep musical, permettant de définir des IR instrumentales effectives (instrument × note ou registre × micro). Ces IR ne sont pas des RIR classiques, mais pourraient servir à l’initialisation du modèle spatial dans Fast MNMF ou comme contrainte douce sur la matrice spatiale.])\
 
 #o([Préplug les micros avant l'enregistrement.])\
 
@@ -44,7 +48,11 @@
 
 #rem([L'algorithme FastMNMF est particulièrement bon dans le cas surdéterminé, rivalisant avec voir dépassant les performances des modèles neuronaux. Possibilité de réimplémenter ces modèles avec des framework de deep learning pour faire du finetuning. Voir _ https://github.com/sekiguchi92/SoundSourceSeparation _.])\
 
+#rem([Demucs pourrait être utilisé principalement comme outil d’initialisation spectrale (W ou H) pour Fast MNMF, plutôt que comme séparation finale autonome.])\
+
 #rem([Abondance de bases de données speech, qui permettent de faire de l'apprentissage supervisé. Les données bruitées sone plus adaptées pour le non-supervisé, en raison de la définition variable de "bruit" (blanc, réverbération, ambience...).])\
+
+#rem([Le dictionnaire de notes permettrait aussi de générer des données synthétiques via MIDI, avec vérité terrain connue, utiles pour : entraînement, validation, tests contrôlés des algorithmes.])\
 
 #p([Utiliser FastMNMF2 pour apprendre des activations $H$ vis-à-vis d'un dictionnaire de notes $W$, initialisation via une séparation initiale réalisée par Demucs. Limites de Demucs? Limites de FastMNMF2 ?])\
 
