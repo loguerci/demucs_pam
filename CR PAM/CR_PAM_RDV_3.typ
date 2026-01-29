@@ -44,7 +44,7 @@
 
 #q([Modèle demucs : Séparation multicanale, stéréo ou monocanale?])\
 
-#r([Stéréo seulement. Il y a peut-être moyen de "tricher" et de l'insérer malgré tout dans notre approche.])\
+#r([Stéréo seulement. Il y a peut-être moyen de "tricher" et de l'insérer malgré tout dans notre approche. On pourrait placer un micro de reference qu'on place à équidistance des sources.])\
 
 #rem([L'algorithme FastMNMF est particulièrement bon dans le cas surdéterminé, rivalisant avec voir dépassant les performances des modèles neuronaux. Possibilité de réimplémenter ces modèles avec des framework de deep learning pour faire du finetuning. Voir _ https://github.com/sekiguchi92/SoundSourceSeparation _.])\
 
