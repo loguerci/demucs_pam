@@ -10,7 +10,6 @@ class ClapConditioner(nn.Module):
         device: torch.device,
         use_audio: bool = True,
         use_text: bool = True,
-        fusion: str = "mean",   # "mean" ou "concat"
         out_dim: int = 512
     ):
         super().__init__()
@@ -19,7 +18,6 @@ class ClapConditioner(nn.Module):
 
         self.use_audio = use_audio
         self.use_text = use_text
-        self.fusion = fusion
         self.out_dim = out_dim
 
         # --- Load CLAP ---
@@ -34,22 +32,6 @@ class ClapConditioner(nn.Module):
         # Freeze CLAP
         for p in self.clap.parameters():
             p.requires_grad = False
-
-        # Optional projection if concat
-        if fusion == "concat":
-            in_dim = 0
-            if use_audio:
-                in_dim += out_dim
-            if use_text:
-                in_dim += out_dim
-
-            self.proj = nn.Sequential(
-                nn.Linear(in_dim, out_dim),
-                nn.ReLU(),
-                nn.Linear(out_dim, out_dim)
-            )
-        else:
-            self.proj = None
 
 
     @torch.no_grad()
@@ -83,13 +65,7 @@ class ClapConditioner(nn.Module):
         if len(embeddings) == 1:
             z = embeddings[0]
         else:
-            if self.fusion == "mean":
-                z = torch.stack(embeddings, dim=0).mean(dim=0)
-            elif self.fusion == "concat":
-                z = torch.cat(embeddings, dim=-1)
-                z = self.proj(z)
-            else:
-                raise ValueError(f"Unknown fusion mode {self.fusion}")
+            z = torch.stack(embeddings, dim=0).mean(dim=0)
 
         z = F.normalize(z, dim=-1)
         return z
