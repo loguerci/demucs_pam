@@ -1,6 +1,10 @@
 import torch
 import torch.nn as nn
 
+#****************************************************************************#
+# Code taken from https://github.com/liuxubo717/LASS/blob/main/model/film.py #
+#****************************************************************************#
+
 class Film(nn.Module):
     def __init__(self, channels, cond_embedding_dim):
         super(Film, self).__init__()
